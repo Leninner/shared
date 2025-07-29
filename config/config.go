@@ -1,6 +1,7 @@
 package config
 
 import (
+	"database/sql"
 	"log/slog"
 	"sync"
 	"time"
@@ -29,4 +30,5 @@ type Application struct {
 	Config Config
 	Logger *slog.Logger
 	WG     sync.WaitGroup
+	DataSource *sql.DB
 } 
