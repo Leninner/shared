@@ -12,6 +12,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/google/uuid"
 	"github.com/julienschmidt/httprouter"
 	"github.com/leninner/shared/utils/validator"
 )
@@ -24,6 +25,17 @@ func ReadIDParam(r *http.Request) (int64, error) {
 	id, err := strconv.ParseInt(params.ByName("id"), 10, 64)
 	if err != nil {
 		return 0, err
+	}
+
+	return id, nil
+}
+
+func ReadUUIDParamByName(r *http.Request, name string) (uuid.UUID, error) {
+	params := httprouter.ParamsFromContext(r.Context())
+
+	id, err := uuid.Parse(params.ByName(name))
+	if err != nil {
+		return uuid.Nil, err
 	}
 
 	return id, nil
